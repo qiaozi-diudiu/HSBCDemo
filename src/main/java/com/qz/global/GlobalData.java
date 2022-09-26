@@ -11,6 +11,8 @@ import java.util.concurrent.TimeUnit;
 public class GlobalData {
     public static Map<String, Long> tokens = new HashMap<>();
 
+    public static Map<String, User> tokens2User = new HashMap<>();
+
     public static Map<String, User> users = new HashMap<>();
 
     public static Map<Role, Set<User>> roles = new HashMap<>();

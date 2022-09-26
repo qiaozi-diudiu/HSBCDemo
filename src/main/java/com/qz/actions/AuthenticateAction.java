@@ -15,6 +15,7 @@ public class AuthenticateAction {
             token = UUID.randomUUID().toString();
         }
         GlobalData.tokens.put(token, currTime);
+        GlobalData.tokens2User.put(token, GlobalData.users.get(username));
         System.out.println("authenticate successfully");
         return token;
     }

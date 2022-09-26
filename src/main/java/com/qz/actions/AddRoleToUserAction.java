@@ -12,12 +12,8 @@ public class AddRoleToUserAction {
         if (!GlobalData.roles.containsKey(role)) {
             throw new IllegalArgumentException(String.format("Role: %s not exist!", role.getRoleName()));
         }
-        Role oldRole = GlobalData.users.get(user.getUsername()).getRole();
-        GlobalData.users.get(user.getUsername()).setRole(role);
-        if (GlobalData.roles.containsKey(oldRole)) {
-            GlobalData.roles.get(oldRole).remove(user);
-        }
+        GlobalData.users.get(user.getUsername()).getRoles().add(role);
         GlobalData.roles.get(role).add(user);
-        System.out.printf("Add role: %s to user: %s successfully", role.getRoleName(), user.getUsername());
+        System.out.printf("Add role: %s to user: %s successfully%n", role.getRoleName(), user.getUsername());
     }
 }

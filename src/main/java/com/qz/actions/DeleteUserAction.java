@@ -8,6 +8,9 @@ public class DeleteUserAction {
         if (!GlobalData.users.containsKey(user.getUsername())) {
             throw new IllegalArgumentException(String.format("User: %s not exist!", user.getUsername()));
         }
+        if (!user.getPassword().equals(GlobalData.users.get(user.getUsername()).getPassword())) {
+            throw new IllegalArgumentException(String.format("User: %s not exist!", user.getUsername()));
+        }
         GlobalData.users.remove(user.getUsername());
         System.out.printf("User: %s deleted successfully%n", user.getUsername());
     }

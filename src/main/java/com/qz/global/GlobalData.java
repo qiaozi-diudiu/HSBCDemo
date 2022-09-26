@@ -12,7 +12,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class GlobalData {
-    private static Properties properties;
+    private static Properties properties = new Properties();
 
     static {
         InputStream inputStream = null;

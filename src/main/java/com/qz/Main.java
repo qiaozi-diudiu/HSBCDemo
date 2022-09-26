@@ -3,7 +3,6 @@ package com.qz;
 import com.qz.actions.*;
 import com.qz.entities.Role;
 import com.qz.entities.User;
-import com.qz.global.GlobalData;
 
 import java.util.Locale;
 import java.util.Scanner;
@@ -24,15 +23,11 @@ public class Main {
                     CreateUserAction.doCreateUser(parts[0], parts[1]);
                 } else if (input.toLowerCase(Locale.ENGLISH).startsWith("delete user ")) {
                     String[] parts = input.substring("delete user ".length()).split(" ");
-                    if (parts.length != 1) {
+                    if (parts.length != 2) {
                         System.out.println("Invalid Command!");
                         continue;
                     }
-                    User user = GlobalData.users.get(parts[0]);
-                    if (user == null) {
-                        throw new IllegalArgumentException(String.format("User: %s not exist!", parts[0]));
-                    }
-                    DeleteUserAction.doDeleteUser(user);
+                    DeleteUserAction.doDeleteUser(new User(parts[0], parts[1]));
                 } else if (input.toLowerCase(Locale.ENGLISH).startsWith("create role ")) {
                     String[] parts = input.substring("create role ".length()).split(" ");
                     if (parts.length != 1) {
@@ -49,15 +44,11 @@ public class Main {
                     DeleteRoleAction.doDeleteRole(new Role(parts[0]));
                 } else if (input.toLowerCase(Locale.ENGLISH).startsWith("add role to user ")) {
                     String[] parts = input.substring("add role to user ".length()).split(" ");
-                    if (parts.length != 2) {
+                    if (parts.length != 3) {
                         System.out.println("Invalid Command!");
                         continue;
                     }
-                    User user = GlobalData.users.get(parts[0]);
-                    if (user == null) {
-                        throw new IllegalArgumentException(String.format("User: %s not exist!", parts[0]));
-                    }
-                    AddRoleToUserAction.doAddRoleToUser(user, new Role(parts[1]));
+                    AddRoleToUserAction.doAddRoleToUser(new User(parts[0], parts[1]), new Role(parts[2]));
                 } else if (input.toLowerCase(Locale.ENGLISH).startsWith("authenticate ")) {
                     String[] parts = input.substring("authenticate ".length()).split(" ");
                     if (parts.length != 2) {
@@ -79,7 +70,8 @@ public class Main {
                         System.out.println("Invalid Command!");
                         continue;
                     }
-                    CheckRoleAction.doCheckRole(parts[0], new Role(parts[1]));
+                    boolean result = CheckRoleAction.doCheckRole(parts[0], new Role(parts[1]));
+                    System.out.printf("Check role result is %s%n", result);
                 } else if (input.toLowerCase(Locale.ENGLISH).startsWith("all roles ")) {
                     String[] parts = input.substring("all roles ".length()).split(" ");
                     if (parts.length != 1) {

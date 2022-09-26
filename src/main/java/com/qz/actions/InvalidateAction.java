@@ -8,6 +8,7 @@ public class InvalidateAction {
             throw new IllegalArgumentException(String.format("Token: %s not exist!", token));
         }
         GlobalData.tokens.remove(token);
+        GlobalData.tokens2User.remove(token);
         System.out.printf("Token: %s invalidated successfully%n", token);
     }
 }

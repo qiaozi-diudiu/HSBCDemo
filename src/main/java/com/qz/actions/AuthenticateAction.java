@@ -1,13 +1,16 @@
 package com.qz.actions;
 
+import com.qz.EncryptUtil;
 import com.qz.global.GlobalData;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class AuthenticateAction {
     public static String doAuthenticate(String username, String password) throws IllegalArgumentException {
         long currTime = System.currentTimeMillis();
-        if (!GlobalData.users.containsKey(username) || !password.equals(GlobalData.users.get(username).getPassword())) {
+        String encrypted = EncryptUtil.encrypt(password);
+        if (!GlobalData.users.containsKey(username) || !Objects.equals(encrypted, GlobalData.users.get(username).getPassword())) {
             throw new IllegalArgumentException(String.format("Invalid %s or %s", username, password));
         }
         String token = UUID.randomUUID().toString();

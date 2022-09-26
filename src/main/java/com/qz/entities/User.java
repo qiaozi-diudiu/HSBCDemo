@@ -1,5 +1,7 @@
 package com.qz.entities;
 
+import com.qz.EncryptUtil;
+
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -20,7 +22,7 @@ public class User {
 
     public User(String username, String password, Set<Role> roles) {
         this.username = username;
-        this.password = password;
+        this.password = EncryptUtil.encrypt(password);
         this.roles = roles;
     }
 
